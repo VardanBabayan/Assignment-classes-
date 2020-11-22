@@ -79,24 +79,4 @@ class HashSet():
          e = e.next
          self._size -= 1
         
-      
-  
- 
- 
-HS = HashSet(100)
-HS.add("a")
-HS.add("b")
-HS.add(1)
-HS.add(3)
-HS1 = HashSet(100)
-HS1.add("a")
-HS1.add("b")
-HS1.add(2)
-HS1.add(3)
-print()
-HS3 = HS.intersection(HS1)
-print(HS3.size())
-print(HS3)
-HS.intersection_update(HS1)
-print(HS.size())
-
+     
