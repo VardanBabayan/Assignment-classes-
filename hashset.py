@@ -1,82 +1,45 @@
-class Node():
-  def __init__(self, data, next = None):
-    self.data = data
-    self.next = next
-      
-class HashSet():
-  def __init__(self, capacity):
-    self._hashtable = [None] * capacity
-    self._capacity = capacity
-    self._size = 0
- 
- def _hash(self, element):
-   return hash(element) % self._capacity
- def add(self, element):
-   index = self._hash(element)
-   if (self._hashtable[index] == None):
-     self._hashtable[index] = Node(element)
-   else:
-     n = Node(element, self._hashtable[index])
-     self._hashtable[index] = n
-   self._size += 1
-   
- def contains(self, element):
-   index = self._hash(element)
-   n = self._hashtable[index]
-   while (n != None):
-     if (n.data == element):
-       return True
-     n = n.next
-   return False
- 
- def remove(self, element):
-   index = self._hash(element)
-   n = self._hashtable[index]
-   p = None
-   while (n != None):
-     if (n.data == element):
-       if (p == None):
-         self._hashtable[index] = n.next
-       else:
-         p.next = n.next
-       n.next = None
-       self._size -= 1
-       return n 
-     p = n
-     n = n.next
-   return None
- 
- def size(self):
-   return self._size
- 
- def intersection(self, s):
-   newSet = HashSet(100)
-   for e in self._hashtable:
-     while (e != None):
-       if (s.contains(e.data)):
-         newSet.add(e.data)
-       e = e.next
-   return newSet
- def intersection_update(self, s):
-   for e in self._hashtable:
-     p = None
-     while (e != None):
-       r = None
-       if (not s.contains(e.data)):
-         r = e
-         ''''
-         # Option 1
-         r = e
-         e = e.next
-         self.remove(r.data)
-         continue
-         '''
-       if (r != None):
-         if (p == None):
-           self._hashtable[self._hash(r.data)] = e.next
-         else:
-           p.next = e.next
-         e = e.next
-         self._size -= 1
+class Bucket:
+   def __init__(self):
+      self.bucket=[]
+   def update(self, key):
+      found=False
+      for i,k in enumerate(self.bucket):
+         if key==k:
+            self.bucket[i]=key
+            found=True
+            break
+      if not found:
+         self.bucket.append(key)
+   def get(self, key):
+      for k in self.bucket:
+         if k==key:
+            return True
+      return False
+   def remove(self, key):
+      for i,k in enumerate(self.bucket):
+         if key==k:
+            del self.bucket[i]
+class MyHashSet:
+   def __init__(self):
+      self.key_space = 2096
+      self.hash_table=[Bucket() for i in range(self.key_space)]
+   def add(self, key):
+      hash_key=key%self.key_space
+      self.hash_table[hash_key].update(key)
+   def remove(self, key):
+      hash_key=key%self.key_space
+      self.hash_table[hash_key].remove(key)
+   def contains(self, key):
+      hash_key=key%self.key_space
+      return self.hash_table[hash_key].get(key)
+ob = MyHashSet()
+ob.add(1)
+ob.add(3)
+print(ob.contains(1))
+print(ob.contains(2))
+ob.add(2)
+print(ob.contains(2))
+ob.remove(2)
+print(ob.contains(2))
         
      
