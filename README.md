@@ -1,5 +1,5 @@
 #LinkedList.py
-#DoubleLinkList.py
+#DoublyLinkedList.py
 #stack.py
 #queue.py
 #deque.py
