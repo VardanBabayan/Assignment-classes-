@@ -1,4 +1,4 @@
-class Queue:
+class Queue(object):
     def __init__(self, limit = 10):
         self.queue = []
         self.front = None
