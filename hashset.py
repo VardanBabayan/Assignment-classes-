@@ -19,19 +19,25 @@ class Bucket:
       for i,k in enumerate(self.bucket):
          if key==k:
             del self.bucket[i]
+
+            
 class MyHashSet:
    def __init__(self):
       self.key_space = 2096
       self.hash_table=[Bucket() for i in range(self.key_space)]
+      
    def add(self, key):
       hash_key=key%self.key_space
       self.hash_table[hash_key].update(key)
+      
    def remove(self, key):
       hash_key=key%self.key_space
       self.hash_table[hash_key].remove(key)
+      
    def contains(self, key):
       hash_key=key%self.key_space
       return self.hash_table[hash_key].get(key)
+
 ob = MyHashSet()
 ob.add(1)
 ob.add(3)
