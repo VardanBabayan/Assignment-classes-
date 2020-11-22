@@ -1,4 +1,4 @@
-class Node:
+class Node(object):
     
     def __init__(self, data, next = None):
         self.data = data;
@@ -20,7 +20,7 @@ class Node:
     def getNext(self):
         return self.next
 
-class LinkedList:
+class LinkedList(object):
    
     def __init__(self):
         self.head = None
